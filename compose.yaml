@@ -1,0 +1,31 @@
+# JupyterHub docker compose configuration file
+version: "3"
+
+services:
+  hub:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    image: jupyterhub
+    container_name: jupyterhub
+    networks:
+      - jupyterhub-network
+    volumes:
+      - "./jupyterhub_config.py:/srv/jupyterhub/jupyterhub_config.py:ro"
+      - "/var/run/docker.sock:/var/run/docker.sock:rw"
+      - "jupyterhub-data:/data"
+    ports:
+      - "8000:8000"
+    environment:
+      JUPYTERHUB_ADMIN: adevireddy
+      DOCKER_NETWORK_NAME: jupyterhub-network
+      DOCKER_NOTEBOOK_IMAGE: jupyterlab-gpu
+      DOCKER_NOTEBOOK_DIR: /home/jovyan/work
+
+volumes:
+  jupyterhub-data:
+
+networks:
+  jupyterhub-network:
+    name: jupyterhub-network
