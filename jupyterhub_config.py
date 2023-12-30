@@ -60,8 +60,10 @@ c.JupyterHub.db_url = "sqlite:////data/jupyterhub.sqlite"
 # Authenticate users with Native Authenticator
 c.JupyterHub.authenticator_class = "nativeauthenticator.NativeAuthenticator"
 
-# Allow anyone to sign-up without approval
+c.NativeAuthenticator.enable_signup = False
 c.NativeAuthenticator.open_signup = False
+import nativeauthenticator
+c.JupyterHub.template_paths = [f"{os.path.dirname(nativeauthenticator.__file__)}/templates/"]
 
 # Allowed admins
 admin = os.environ.get("JUPYTERHUB_ADMIN")
