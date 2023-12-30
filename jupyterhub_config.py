@@ -30,6 +30,7 @@ c.DockerSpawner.extra_create_kwargs = {
 
 c.DockerSpawner.environment = {
     "GRANT_SUDO": "yes",
+    "HF_HOME": "/home/jovyan/work/.cache"
 }
 
 # Explicitly set notebook directory because we'll be mounting a volume to it.
